@@ -1,0 +1,27 @@
+/*
+ * TOTEM dongle
+ *
+ * The dongle is the split central: both halves become peripherals and talk
+ * to it, and it is the only device connected to the host over USB.
+ *
+ * It includes totem.dtsi so that the matrix transform and the physical
+ * layout are literally the same nodes as on the halves - ZMK requires all
+ * parts of a split to agree on those, down to the devicetree node names.
+ *
+ * The dongle has no key matrix of its own, so kscan0 is redefined here as
+ * a mock scanner instead of a GPIO matrix.
+ */
+
+#include "totem.dtsi"
+
+&kscan0 {
+    compatible = "zmk,kscan-mock";
+
+    /delete-property/ diode-direction;
+    /delete-property/ row-gpios;
+
+    columns = <1>;
+    rows = <0>;
+
+    events = <>;
+};

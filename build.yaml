@@ -1,7 +1,19 @@
 include:
+  # The dongle: split central, plugged into the host over USB.
+  - board: seeeduino_xiao_ble
+    shield: totem_dongle
+
+  # Both halves are peripherals. Kconfig.defconfig makes the left half
+  # central by default, so that has to be overridden here.
   - board: seeeduino_xiao_ble
     shield: totem_left
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+
   - board: seeeduino_xiao_ble
     shield: totem_right
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+
+  # Flash this to all three devices before the first dongle firmware,
+  # otherwise the old pairings keep the halves from finding the dongle.
   - board: seeeduino_xiao_ble
     shield: settings_reset
