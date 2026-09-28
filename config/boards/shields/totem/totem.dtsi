@@ -20,48 +20,49 @@
         transform = <&default_transform>;
         kscan = <&kscan0>;
 
-        // Key positions extracted from the switch cutouts of the case STL
-        // (TOTEM_case_ble_top_L/R_V.08, switch plate at z=3.7mm).
-        // Column pitch 16.8mm = 100 units; 18mm between columns.
+        // Key positions taken from the project's own layout drawing,
+        // docs/images/TOTEM_layout.svg, which is dimensioned in mm and
+        // carries explicit per-key rotations. 1u = 17.5mm (Choc keycap
+        // width), so keys are 100 x 94 units.
         keys
-            = <&key_physical_attrs 100 100    78   153    1000   128   203>   //  0 LH0
-            , <&key_physical_attrs 100 100   199    60     400   249   110>   //  1 LH1
-            , <&key_physical_attrs 100 100   322     0       0     0     0>   //  2 LH2
-            , <&key_physical_attrs 100 100   429    50       0     0     0>   //  3 LH3
-            , <&key_physical_attrs 100 100   535    66       0     0     0>   //  4 LH4
-            , <&key_physical_attrs 100 100   926    66       0     0     0>   //  5 RH0
-            , <&key_physical_attrs 100 100  1034    50       0     0     0>   //  6 RH1
-            , <&key_physical_attrs 100 100  1141     0       0     0     0>   //  7 RH2
-            , <&key_physical_attrs 100 100  1263    60  (-400)  1313   110>   //  8 RH3
-            , <&key_physical_attrs 100 100  1383   153 (-1000)  1433   203>   //  9 RH4
-            , <&key_physical_attrs 100 100    96   252    1000   146   302>   // 10 LH0
-            , <&key_physical_attrs 100 100   206   161     400   256   211>   // 11 LH1
-            , <&key_physical_attrs 100 100   322   100       0     0     0>   // 12 LH2
-            , <&key_physical_attrs 100 100   429   152       0     0     0>   // 13 LH3
-            , <&key_physical_attrs 100 100   535   168       0     0     0>   // 14 LH4
-            , <&key_physical_attrs 100 100   926   168       0     0     0>   // 15 RH0
-            , <&key_physical_attrs 100 100  1034   152       0     0     0>   // 16 RH1
-            , <&key_physical_attrs 100 100  1141   100       0     0     0>   // 17 RH2
-            , <&key_physical_attrs 100 100  1256   161  (-400)  1306   211>   // 18 RH3
-            , <&key_physical_attrs 100 100  1366   252 (-1000)  1416   302>   // 19 RH4
-            , <&key_physical_attrs 100 100     0   326    1000    50   376>   // 20 LPKY
-            , <&key_physical_attrs 100 100   114   352    1000   164   402>   // 21 LH0
-            , <&key_physical_attrs 100 100   213   262     400   263   312>   // 22 LH1
-            , <&key_physical_attrs 100 100   322   202       0     0     0>   // 23 LH2
-            , <&key_physical_attrs 100 100   429   252       0     0     0>   // 24 LH3
-            , <&key_physical_attrs 100 100   535   268       0     0     0>   // 25 LH4
-            , <&key_physical_attrs 100 100   926   268       0     0     0>   // 26 RH0
-            , <&key_physical_attrs 100 100  1034   252       0     0     0>   // 27 RH1
-            , <&key_physical_attrs 100 100  1141   202       0     0     0>   // 28 RH2
-            , <&key_physical_attrs 100 100  1249   262  (-400)  1299   312>   // 29 RH3
-            , <&key_physical_attrs 100 100  1348   352 (-1000)  1398   402>   // 30 RH4
-            , <&key_physical_attrs 100 100  1462   326 (-1000)  1512   376>   // 31 RPKY
-            , <&key_physical_attrs 100 100   399   375       0     0     0>   // 32 LT0
-            , <&key_physical_attrs 100 100   517   392 (-1500)   567   442>   // 33 LT1
-            , <&key_physical_attrs 100 100   627   437 (-3000)   677   487>   // 34 LT2
-            , <&key_physical_attrs 100 100   835   437    3000   885   487>   // 35 RT0
-            , <&key_physical_attrs 100 100   945   391    1500   995   441>   // 36 RT1
-            , <&key_physical_attrs 100 100  1064   375       0     0     0>   // 37 RT2
+            = <&key_physical_attrs 100  94    85   150 (-1000)   135   197>   //  0 LP
+            , <&key_physical_attrs 100  94   201    61  (-400)   251   108>   //  1 LR
+            , <&key_physical_attrs 100  94   318     3       0     0     0>   //  2 LM
+            , <&key_physical_attrs 100  94   421    51       0     0     0>   //  3 LI
+            , <&key_physical_attrs 100  94   524    67       0     0     0>   //  4 LN
+            , <&key_physical_attrs 100  94   853    67       0     0     0>   //  5 RN
+            , <&key_physical_attrs 100  94   956    51       0     0     0>   //  6 RI
+            , <&key_physical_attrs 100  94  1059     3       0     0     0>   //  7 RM
+            , <&key_physical_attrs 100  94  1177    61     400  1227   108>   //  8 RR
+            , <&key_physical_attrs 100  94  1292   150    1000  1342   197>   //  9 RP
+            , <&key_physical_attrs 100  94   102   246 (-1000)   152   293>   // 10 LP
+            , <&key_physical_attrs 100  94   208   158  (-400)   258   205>   // 11 LR
+            , <&key_physical_attrs 100  94   318   100       0     0     0>   // 12 LM
+            , <&key_physical_attrs 100  94   421   149       0     0     0>   // 13 LI
+            , <&key_physical_attrs 100  94   524   164       0     0     0>   // 14 LN
+            , <&key_physical_attrs 100  94   853   164       0     0     0>   // 15 RN
+            , <&key_physical_attrs 100  94   956   149       0     0     0>   // 16 RI
+            , <&key_physical_attrs 100  94  1059   100       0     0     0>   // 17 RM
+            , <&key_physical_attrs 100  94  1170   158     400  1220   205>   // 18 RR
+            , <&key_physical_attrs 100  94  1275   246    1000  1325   293>   // 19 RP
+            , <&key_physical_attrs 100  94    10   316 (-1000)    60   363>   // 20 LPKY
+            , <&key_physical_attrs 100  94   119   341 (-1000)   169   388>   // 21 LP
+            , <&key_physical_attrs 100  94   214   255  (-400)   264   302>   // 22 LR
+            , <&key_physical_attrs 100  94   318   197       0     0     0>   // 23 LM
+            , <&key_physical_attrs 100  94   421   246       0     0     0>   // 24 LI
+            , <&key_physical_attrs 100  94   524   261       0     0     0>   // 25 LN
+            , <&key_physical_attrs 100  94   853   261       0     0     0>   // 26 RN
+            , <&key_physical_attrs 100  94   956   246       0     0     0>   // 27 RI
+            , <&key_physical_attrs 100  94  1059   197       0     0     0>   // 28 RM
+            , <&key_physical_attrs 100  94  1163   255     400  1213   302>   // 29 RR
+            , <&key_physical_attrs 100  94  1258   341    1000  1308   388>   // 30 RP
+            , <&key_physical_attrs 100  94  1367   316    1000  1417   363>   // 31 RPKY
+            , <&key_physical_attrs 100  94   393   364       0     0     0>   // 32 LT1
+            , <&key_physical_attrs 100  94   506   379    1500   556   426>   // 33 LT2
+            , <&key_physical_attrs 100  94   612   423    3000   662   470>   // 34 LT3
+            , <&key_physical_attrs 100  94   766   423 (-3000)   816   470>   // 35 RT1
+            , <&key_physical_attrs 100  94   871   379 (-1500)   921   426>   // 36 RT2
+            , <&key_physical_attrs 100  94   985   364       0     0     0>   // 37 RT3
             ;
     };
 
