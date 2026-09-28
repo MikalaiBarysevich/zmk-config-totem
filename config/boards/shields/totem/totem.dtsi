@@ -5,11 +5,64 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <physical_layouts.dtsi>
 
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,matrix_transform = &default_transform;
+        zmk,physical-layout = &totem_layout;
+    };
+
+
+    totem_layout: totem_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "TOTEM";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
+
+        // Key positions extracted from the switch cutouts of the case STL
+        // (TOTEM_case_ble_top_L/R_V.08, switch plate at z=3.7mm).
+        // Column pitch 16.8mm = 100 units; 18mm between columns.
+        keys
+            = <&key_physical_attrs 100 100    28   103   1000    78   153>   //  0 LH0
+            , <&key_physical_attrs 100 100   149    10    400   199    60>   //  1 LH1
+            , <&key_physical_attrs 100 100   272   -50      0     0     0>   //  2 LH2
+            , <&key_physical_attrs 100 100   379     0      0     0     0>   //  3 LH3
+            , <&key_physical_attrs 100 100   485    16      0     0     0>   //  4 LH4
+            , <&key_physical_attrs 100 100   876    16      0     0     0>   //  5 RH0
+            , <&key_physical_attrs 100 100   984     0      0     0     0>   //  6 RH1
+            , <&key_physical_attrs 100 100  1091   -50      0     0     0>   //  7 RH2
+            , <&key_physical_attrs 100 100  1213    10   -400  1263    60>   //  8 RH3
+            , <&key_physical_attrs 100 100  1333   103  -1000  1383   153>   //  9 RH4
+            , <&key_physical_attrs 100 100    46   202   1000    96   252>   // 10 LH0
+            , <&key_physical_attrs 100 100   156   111    400   206   161>   // 11 LH1
+            , <&key_physical_attrs 100 100   272    50      0     0     0>   // 12 LH2
+            , <&key_physical_attrs 100 100   379   102      0     0     0>   // 13 LH3
+            , <&key_physical_attrs 100 100   485   118      0     0     0>   // 14 LH4
+            , <&key_physical_attrs 100 100   876   118      0     0     0>   // 15 RH0
+            , <&key_physical_attrs 100 100   984   102      0     0     0>   // 16 RH1
+            , <&key_physical_attrs 100 100  1091    50      0     0     0>   // 17 RH2
+            , <&key_physical_attrs 100 100  1206   111   -400  1256   161>   // 18 RH3
+            , <&key_physical_attrs 100 100  1316   202  -1000  1366   252>   // 19 RH4
+            , <&key_physical_attrs 100 100   -50   276   1000     0   326>   // 20 LPKY
+            , <&key_physical_attrs 100 100    64   302   1000   114   352>   // 21 LH0
+            , <&key_physical_attrs 100 100   163   212    400   213   262>   // 22 LH1
+            , <&key_physical_attrs 100 100   272   152      0     0     0>   // 23 LH2
+            , <&key_physical_attrs 100 100   379   202      0     0     0>   // 24 LH3
+            , <&key_physical_attrs 100 100   485   218      0     0     0>   // 25 LH4
+            , <&key_physical_attrs 100 100   876   218      0     0     0>   // 26 RH0
+            , <&key_physical_attrs 100 100   984   202      0     0     0>   // 27 RH1
+            , <&key_physical_attrs 100 100  1091   152      0     0     0>   // 28 RH2
+            , <&key_physical_attrs 100 100  1199   212   -400  1249   262>   // 29 RH3
+            , <&key_physical_attrs 100 100  1298   302  -1000  1348   352>   // 30 RH4
+            , <&key_physical_attrs 100 100  1412   276  -1000  1462   326>   // 31 RPKY
+            , <&key_physical_attrs 100 100   349   325      0     0     0>   // 32 LT0
+            , <&key_physical_attrs 100 100   467   342  -1500   517   392>   // 33 LT1
+            , <&key_physical_attrs 100 100   577   387  -3000   627   437>   // 34 LT2
+            , <&key_physical_attrs 100 100   785   387   3000   835   437>   // 35 RT0
+            , <&key_physical_attrs 100 100   895   341   1500   945   391>   // 36 RT1
+            , <&key_physical_attrs 100 100  1014   325      0     0     0>   // 37 RT2
+            ;
     };
 
     default_transform: keymap_transform_0 {
@@ -31,7 +84,6 @@
 
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
         
         diode-direction = "col2row"; 
         row-gpios
