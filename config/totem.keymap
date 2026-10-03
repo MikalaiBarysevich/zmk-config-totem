@@ -29,6 +29,16 @@
             key-positions = <12 13>;
             bindings = <&kp TAB>;
         };
+
+        // Unlocking ZMK Studio. On a combo rather than its own key: the FN
+        // layer has no free slots left, and the two ends of the BT_SEL row
+        // are never pressed together by accident.
+        combo_studio_unlock {
+            timeout-ms = <80>;
+            layers = <FN>;
+            key-positions = <21 25>;
+            bindings = <&studio_unlock>;
+        };
     };
 
     keymap {
@@ -88,8 +98,8 @@
             display-name = "FN";
             bindings = <
                              &kp F1           &kp F2           &kp F3           &kp F4           &kp F5    &kp F6           &kp F7           &kp F8           &kp F9           &kp F10
-                             &kp F11          &kp F12          &none            &to 2            &to 0    &mmv MOVE_LEFT   &mmv MOVE_DOWN   &mmv MOVE_UP     &mmv MOVE_RIGHT  &mkp MB1
-   &none            &none            &none            &none            &none            &none    &msc SCRL_LEFT   &msc SCRL_DOWN   &msc SCRL_UP     &msc SCRL_RIGHT  &mkp MB2 &mkp MB3
+                             &kp F11          &kp F12          &out OUT_TOG     &to 2            &to 0    &mmv MOVE_LEFT   &mmv MOVE_DOWN   &mmv MOVE_UP     &mmv MOVE_RIGHT  &mkp MB1
+   &bt BT_CLR       &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4    &msc SCRL_LEFT   &msc SCRL_DOWN   &msc SCRL_UP     &msc SCRL_RIGHT  &mkp MB2 &mkp MB3
                                      &kp LGUI         &trans           &kp SPACE    &kp RET          &trans           &kp RCTRL
             >;
         };
