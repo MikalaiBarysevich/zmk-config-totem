@@ -11,12 +11,36 @@
 #define SYM     4
 #define FN      5
 
-// Home-row mods. Ported from the QH42 Vial config, whose tapping term was 175ms.
+// Home-row mods, ported from the QH42 Vial config - this time from the numbers
+// actually in it. Read out of ~/qh42-backup/live-after-20261020.vil, decoded
+// through the setting ids in vial-gui/src/main/resources/base/qmk_settings.json:
+//
+//   Tapping Term             (qsid 7)           200
+//   Permissive Hold          (qsid 8, bit 0)    on
+//   Ignore Mod Tap Interrupt (qsid 8, bit 1)    on
+//   Tapping Force Hold       (qsid 8, bit 2)    on
+//   Retro Tapping            (qsid 8, bit 3)    off
+//
+// The 175 that used to stand here was a misread of the backup: that is Auto
+// Shift's timeout (qsid 4), and Auto Shift itself was switched off.
+//
+// Permissive Hold together with Ignore Mod Tap Interrupt is exactly what ZMK
+// calls "balanced" - a key tapped inside the hold resolves it at once, while a
+// mere interrupting press does not. The old "tap-preferred" had no equivalent
+// of Permissive Hold at all, so every home-row chord sat out the whole tapping
+// term before the modifier landed. That is up to 175ms of delay per chord that
+// Vial never charged, and it is the "unpleasant lag" this config was accused of.
+//
+// Two properties are deliberately absent rather than set:
+//   - quick-tap-ms keeps its default of 0. Tapping Force Hold was on, and that
+//     is precisely the absence of tap-then-hold auto-repeat; the 100 here said
+//     the opposite.
+//   - require-prior-idle-ms has no counterpart in Vial. It was invented during
+//     the port, and all it did was paper over the delay above while typing fast,
+//     which is why the lag came and went.
 &mt {
-    quick-tap-ms = <100>;
-    require-prior-idle-ms = <125>;
-    flavor = "tap-preferred";
-    tapping-term-ms = <175>;
+    flavor = "balanced";
+    tapping-term-ms = <200>;
 };
 
 / {
@@ -98,7 +122,7 @@
             display-name = "FN";
             bindings = <
                              &kp F1           &kp F2           &kp F3           &kp F4           &kp F5    &kp F6           &kp F7           &kp F8           &kp F9           &kp F10
-                             &kp F11          &kp F12          &out OUT_TOG     &to 2            &to 0    &mmv MOVE_LEFT   &mmv MOVE_DOWN   &mmv MOVE_UP     &mmv MOVE_RIGHT  &mkp MB1
+                             &out OUT_TOG     &kp F11          &kp F12          &to 2            &to 0    &mmv MOVE_LEFT   &mmv MOVE_DOWN   &mmv MOVE_UP     &mmv MOVE_RIGHT  &mkp MB1
    &bt BT_CLR       &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4    &msc SCRL_LEFT   &msc SCRL_DOWN   &msc SCRL_UP     &msc SCRL_RIGHT  &mkp MB2 &mkp MB3
                                      &kp LGUI         &trans           &kp SPACE    &kp RET          &trans           &kp RCTRL
             >;
