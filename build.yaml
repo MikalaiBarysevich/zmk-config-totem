@@ -10,12 +10,18 @@ include:
     shield: totem_left
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
 
-  # No cmake-args here, on purpose: Kconfig.defconfig already turns ZMK_SPLIT
-  # on for this shield and never makes it central, so they were redundant -
-  # and a single -DCONFIG_ on the command line puts Zephyr into a strict mode
-  # where the Kconfig warnings from totem_right.conf become fatal.
+  # TEMPORARY, bring-up only: zmk-usb-logging makes this half appear as a USB
+  # serial port and print what its matrix scans and what it sends to the
+  # central, which separates a soldering fault from a pairing fault. Drop the
+  # snippet once the half works.
+  #
+  # It has to be the snippet rather than CONFIG_ZMK_USB_LOGGING=y, because the
+  # logger needs a CDC ACM node that the board's devicetree does not have; the
+  # snippet adds it. No cmake-args either: Kconfig.defconfig already turns
+  # ZMK_SPLIT on for this shield and never makes it central.
   - board: seeeduino_xiao_ble
     shield: totem_right
+    snippet: zmk-usb-logging
 
   # Flash this to all three devices before the first dongle firmware,
   # otherwise the old pairings keep the halves from finding the dongle.
