@@ -1,14 +1,20 @@
 include:
-  # The dongle: split central, plugged into the host over USB.
+  # The dongle: split central, plugged into the host over USB. Kept building
+  # so it is ready when the replacement controller arrives, but NOT in use -
+  # the left half is the central for now. Flashing both would give the split
+  # two centrals.
   - board: seeeduino_xiao_ble
     shield: totem_dongle
     snippet: studio-rpc-usb-uart
 
-  # Both halves are peripherals. Kconfig.defconfig makes the left half
-  # central by default, so that has to be overridden here.
+  # The left half is the central while there are only two working controllers.
+  # Kconfig.defconfig already defaults ZMK_SPLIT_ROLE_CENTRAL to y for this
+  # shield, so nothing has to be passed here; the dongle topology used to
+  # override it back to n. It carries Studio, since the central is the device
+  # the host talks to.
   - board: seeeduino_xiao_ble
     shield: totem_left
-    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+    snippet: studio-rpc-usb-uart
 
   # No cmake-args needed here: Kconfig.defconfig already turns ZMK_SPLIT on for
   # this shield and only ever defaults ZMK_SPLIT_ROLE_CENTRAL to y for the left
@@ -16,7 +22,8 @@ include:
   - board: seeeduino_xiao_ble
     shield: totem_right
 
-  # Flash this to all three devices before the first dongle firmware,
-  # otherwise the old pairings keep the halves from finding the dongle.
+  # Flash this to every device before changing which one is the central.
+  # A peripheral that still holds a bond advertises directed at that old
+  # address only, so a new central never sees it at all.
   - board: seeeduino_xiao_ble
     shield: settings_reset
