@@ -18,3 +18,21 @@ include:
   # otherwise the old pairings keep the halves from finding the dongle.
   - board: seeeduino_xiao_ble
     shield: settings_reset
+
+  # Debug builds. Same shields, but they log to a USB serial port instead of
+  # staying quiet, so a half that never reaches the dongle can be told apart
+  # from a half whose matrix never sees the key press.
+  #
+  # The dongle one drops the Studio snippet on purpose: Studio and the logger
+  # both want the CDC ACM port.
+  - board: seeeduino_xiao_ble
+    shield: totem_dongle
+    artifact-name: DEBUG-totem_dongle
+    cmake-args: -DCONFIG_ZMK_USB_LOGGING=y -DCONFIG_ZMK_LOG_LEVEL_DBG=y
+
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    artifact-name: DEBUG-totem_right
+    cmake-args: >
+      -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+      -DCONFIG_ZMK_USB_LOGGING=y -DCONFIG_ZMK_LOG_LEVEL_DBG=y
