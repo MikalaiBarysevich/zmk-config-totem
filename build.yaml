@@ -23,6 +23,16 @@ include:
     shield: totem_right
     snippet: zmk-usb-logging
 
+  # TEMPORARY, bring-up only. The right half scans its matrix correctly but
+  # gets ENOTCONN when it tries to notify the central, so this build says what
+  # the dongle is doing about it: scanning, finding, connecting or failing to
+  # bond. Studio is left out because its RPC transport and the logger both
+  # want the one CDC ACM port.
+  - board: seeeduino_xiao_ble
+    shield: totem_dongle
+    artifact-name: DEBUG-totem_dongle
+    snippet: zmk-usb-logging
+
   # Flash this to all three devices before the first dongle firmware,
   # otherwise the old pairings keep the halves from finding the dongle.
   - board: seeeduino_xiao_ble
