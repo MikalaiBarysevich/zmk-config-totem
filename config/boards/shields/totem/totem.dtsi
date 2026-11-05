@@ -85,8 +85,26 @@
 
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
-        
-        diode-direction = "col2row"; 
+
+        // Required for a keypress to wake the half out of deep sleep, and the
+        // upstream Totem shield omits it - harmless there, since that config
+        // never turned CONFIG_ZMK_SLEEP on.
+        //
+        // Without it the right half only came back after a power cycle.
+        // zmk_pm_suspend_devices() in app/src/pm.c skips any device that
+        // pm_device_wakeup_is_enabled() reports - a flag Zephyr raises from
+        // exactly this property - and suspends everything else. The matrix
+        // driver's PM_DEVICE_ACTION_SUSPEND sets every row and column to
+        // GPIO_DISCONNECTED, so a suspended matrix cannot see a keypress at
+        // all: nothing drives the columns and nothing senses the rows.
+        //
+        // The official matrix shields all carry it (bat43, bfo9000,
+        // boardsource3x4). Keeping the matrix out of suspend costs nothing
+        // while no key is down: the columns sit driven, the rows are pulled
+        // down, and the diodes block any path between them.
+        wakeup-source;
+
+        diode-direction = "col2row";
         row-gpios
             = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
