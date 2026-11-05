@@ -14,7 +14,6 @@ include:
   # the host talks to.
   - board: seeeduino_xiao_ble
     shield: totem_left
-    snippet: studio-rpc-usb-uart
 
   # No cmake-args needed here: Kconfig.defconfig already turns ZMK_SPLIT on for
   # this shield and only ever defaults ZMK_SPLIT_ROLE_CENTRAL to y for the left
