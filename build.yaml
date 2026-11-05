@@ -41,3 +41,8 @@ include:
     shield: totem_right
     cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_TOTEM_REGOUT0_3V3=y
     artifact-name: right-off30-regout33
+  # off30 + matrix polled every 1 ms always (same CPU duty as a held key).
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_ZMK_KSCAN_MATRIX_POLLING=y -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/poll1ms.overlay
+    artifact-name: right-off30-poll1ms

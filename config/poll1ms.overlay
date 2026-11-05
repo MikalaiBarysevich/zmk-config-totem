@@ -1,0 +1,3 @@
+/* power-bisect only: scan the matrix every 1 ms even with no key down,
+ * which is what the driver does while a key is held. */
+&kscan0 { poll-period-ms = <1>; };
