@@ -1,0 +1,10 @@
+config TOTEM_REGOUT0_3V3
+	bool "Program UICR.REGOUT0 to 3.3 V on first boot"
+	depends on SOC_NRF52840
+	default n
+	help
+	  The Super52840 controller supplies the chip on VDDH while an
+	  external 3.3 V LDO also drives VDD. With REGOUT0 left at the
+	  factory 1.8 V the internal REG0 and the LDO disagree. This writes
+	  3.3 V once (UICR is persistent, survives reflashing, and can only
+	  be undone by a full erase over SWD), then resets.

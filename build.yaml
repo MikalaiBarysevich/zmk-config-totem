@@ -36,3 +36,8 @@ include:
     shield: totem_right
     cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/qspi-hog.overlay
     artifact-name: right-off30-qspihog
+  # off30 + UICR.REGOUT0 programmed to 3.3 V (persistent!). LED: green = 3.3 V.
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_TOTEM_REGOUT0_3V3=y
+    artifact-name: right-off30-regout33
