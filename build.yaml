@@ -72,3 +72,8 @@ include:
     shield: totem_right
     cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_ZMK_KSCAN_MATRIX_POLLING=y -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/poll10ms.overlay
     artifact-name: right-off30-poll10ms
+  # Daily right firmware, only change: scan every 5 ms while a key is held.
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/scan5ms.overlay
+    artifact-name: right-scan5

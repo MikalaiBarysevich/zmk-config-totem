@@ -1,0 +1,3 @@
+/* Scan every 5 ms while a key is held (default 1 ms): each CPU wake-up
+ * costs ~45 uC on these Super52840 controllers. */
+&kscan0 { debounce-scan-period-ms = <5>; };
