@@ -26,3 +26,8 @@ include:
     shield: totem_right
     cmake-args: -DCONFIG_ZMK_USB=n
     artifact-name: right-nousb
+  # System OFF after 30 s idle: board current with the chip fully off.
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000
+    artifact-name: right-off30
