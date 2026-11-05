@@ -19,6 +19,10 @@
 
     /delete-property/ diode-direction;
     /delete-property/ row-gpios;
+    // zmk,kscan-mock does not declare wakeup-source, and leaving it on the
+    // node is a hard devicetree error, not a warning. It is meaningless here
+    // anyway: the dongle has no matrix to wake from and no battery to save.
+    /delete-property/ wakeup-source;
 
     columns = <1>;
     rows = <0>;
