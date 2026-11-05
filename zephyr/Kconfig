@@ -8,3 +8,8 @@ config TOTEM_REGOUT0_3V3
 	  factory 1.8 V the internal REG0 and the LDO disagree. This writes
 	  3.3 V once (UICR is persistent, survives reflashing, and can only
 	  be undone by a full erase over SWD), then resets.
+
+config TOTEM_DIAG
+	bool "Log chip identity, regulator state and VDD/VDDH every 5 s"
+	depends on SOC_NRF52840 && ADC && LOG
+	default n

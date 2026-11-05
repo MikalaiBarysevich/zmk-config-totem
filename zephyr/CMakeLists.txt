@@ -1,4 +1,5 @@
-if(CONFIG_TOTEM_REGOUT0_3V3)
+if(CONFIG_TOTEM_REGOUT0_3V3 OR CONFIG_TOTEM_DIAG)
   zephyr_library()
-  zephyr_library_sources(src/regout0.c)
+  zephyr_library_sources_ifdef(CONFIG_TOTEM_REGOUT0_3V3 src/regout0.c)
+  zephyr_library_sources_ifdef(CONFIG_TOTEM_DIAG src/diag.c)
 endif()
