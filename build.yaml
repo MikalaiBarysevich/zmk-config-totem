@@ -31,3 +31,8 @@ include:
     shield: totem_right
     cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000
     artifact-name: right-off30
+  # off30 + QSPI flash pins held at defined levels instead of floating.
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/qspi-hog.overlay
+    artifact-name: right-off30-qspihog
