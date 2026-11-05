@@ -23,6 +23,8 @@
     // node is a hard devicetree error, not a warning. It is meaningless here
     // anyway: the dongle has no matrix to wake from and no battery to save.
     /delete-property/ wakeup-source;
+    // Same story for the matrix scan period set in totem.dtsi.
+    /delete-property/ debounce-scan-period-ms;
 
     columns = <1>;
     rows = <0>;
