@@ -13,3 +13,9 @@ config TOTEM_DIAG
 	bool "Log chip identity, regulator state and VDD/VDDH every 5 s"
 	depends on SOC_NRF52840 && ADC && LOG
 	default n
+
+config TOTEM_DCDC_HV
+	bool "Run REG0 (VDDH -> VDD) as DCDC; NL1 is fitted on DCCH"
+	depends on SOC_NRF52840
+	select SOC_DCDC_NRF52X_HV
+	default n

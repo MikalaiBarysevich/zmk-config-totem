@@ -60,5 +60,5 @@ include:
   # off30 with REG0 in DCDC mode (inductor NL1 is fitted on DCCH).
   - board: seeeduino_xiao_ble
     shield: totem_right
-    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_SOC_DCDC_NRF52X_HV=y
+    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_TOTEM_DCDC_HV=y
     artifact-name: right-off30-hvdcdc
