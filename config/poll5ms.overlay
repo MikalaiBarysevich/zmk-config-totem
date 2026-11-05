@@ -1,0 +1,2 @@
+/* power-bisect only: always poll the matrix every 5 ms. */
+&kscan0 { poll-period-ms = <5>; };

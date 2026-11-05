@@ -62,3 +62,13 @@ include:
     shield: totem_right
     cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_TOTEM_DCDC_HV=y
     artifact-name: right-off30-hvdcdc
+  # off30 + matrix polled every 5 ms always: cost of one CPU wake-up.
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_ZMK_KSCAN_MATRIX_POLLING=y -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/poll5ms.overlay
+    artifact-name: right-off30-poll5ms
+  # off30 + matrix polled every 10 ms always: cost of one CPU wake-up.
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_ZMK_KSCAN_MATRIX_POLLING=y -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/poll10ms.overlay
+    artifact-name: right-off30-poll10ms
