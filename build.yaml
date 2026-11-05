@@ -46,3 +46,8 @@ include:
     shield: totem_right
     cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_ZMK_KSCAN_MATRIX_POLLING=y -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/poll1ms.overlay
     artifact-name: right-off30-poll1ms
+  # poll1ms with REG1 DCDC off: is the awake-state current the DCDC?
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000 -DCONFIG_ZMK_KSCAN_MATRIX_POLLING=y -DEXTRA_DTC_OVERLAY_FILE=$PWD/config/poll1ms.overlay -DCONFIG_BOARD_ENABLE_DCDC=n
+    artifact-name: right-off30-poll1ms-nodcdc
