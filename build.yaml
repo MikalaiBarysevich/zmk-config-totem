@@ -1,28 +1,28 @@
+# power-bisect: measurement builds only, not for daily use.
+# Each variant differs from right-base in exactly one setting.
 include:
-  # The dongle: split central, plugged into the host over USB. Kept building
-  # so it is ready when the replacement controller arrives, but NOT in use -
-  # the left half is the central for now. Flashing both would give the split
-  # two centrals.
-  - board: seeeduino_xiao_ble
-    shield: totem_dongle
-    snippet: studio-rpc-usb-uart
-
-  # The left half is the central while there are only two working controllers.
-  # Kconfig.defconfig already defaults ZMK_SPLIT_ROLE_CENTRAL to y for this
-  # shield, so nothing has to be passed here; the dongle topology used to
-  # override it back to n. It carries Studio, since the central is the device
-  # the host talks to.
-  - board: seeeduino_xiao_ble
-    shield: totem_left
-
-  # No cmake-args needed here: Kconfig.defconfig already turns ZMK_SPLIT on for
-  # this shield and only ever defaults ZMK_SPLIT_ROLE_CENTRAL to y for the left
-  # half and the dongle.
   - board: seeeduino_xiao_ble
     shield: totem_right
+    artifact-name: right-base
 
-  # Flash this to every device before changing which one is the central.
-  # A peripheral that still holds a bond advertises directed at that old
-  # address only, so a new central never sees it at all.
+  # DCDC off: the board Kconfig defaults BOARD_ENABLE_DCDC=y because the
+  # genuine XIAO carries the DCC inductor network. This is a Super52840,
+  # whose regulator layout is unknown.
   - board: seeeduino_xiao_ble
-    shield: settings_reset
+    shield: totem_right
+    cmake-args: -DCONFIG_BOARD_ENABLE_DCDC=n
+    artifact-name: right-nodcdc
+
+  # No battery measurement: drops the ADC and the P0.14 divider-enable
+  # pin, the only internal pin the XIAO overlay drives.
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_BATTERY_REPORTING=n
+    artifact-name: right-nobatt
+
+  # No USB stack: rules out VBUS detection wired differently on this board
+  # keeping the USB peripheral and its clock alive.
+  - board: seeeduino_xiao_ble
+    shield: totem_right
+    cmake-args: -DCONFIG_ZMK_USB=n
+    artifact-name: right-nousb
