@@ -11,18 +11,27 @@
 #define SYM     4
 #define FN      5
 
-// Home-row mods, ported from the QH42 Vial config - this time from the numbers
-// actually in it. Read out of ~/qh42-backup/live-after-20261020.vil, decoded
-// through the setting ids in vial-gui/src/main/resources/base/qmk_settings.json:
+// Home-row mods, ported from the QH42 Vial config. The numbers below are the
+// QH42's live Tap-Hold settings as of 2026-11-05, read off the Vial GUI itself
+// rather than a backup file:
 //
-//   Tapping Term             (qsid 7)           200
+//   Tapping Term             (qsid 7)           300
 //   Permissive Hold          (qsid 8, bit 0)    on
 //   Ignore Mod Tap Interrupt (qsid 8, bit 1)    on
 //   Tapping Force Hold       (qsid 8, bit 2)    on
 //   Retro Tapping            (qsid 8, bit 3)    off
 //
-// The 175 that used to stand here was a misread of the backup: that is Auto
+// The term stood at 200 here, which was correct for
+// ~/qh42-backup/live-after-20261020.vil; it has since been raised on the QH42,
+// and the point of this port is that the two boards feel the same. Before that
+// it briefly read 175, which was a misread of the same backup - that is Auto
 // Shift's timeout (qsid 4), and Auto Shift itself was switched off.
+//
+// A longer term makes a hold easier to reach deliberately and a tap harder to
+// trigger by accident, at the cost of the modifier landing later. With
+// "balanced" that cost is only paid for a chord that is held without pressing
+// anything else - a chord that does press another key resolves immediately, so
+// the 300 is nowhere near 300ms of felt lag while typing.
 //
 // Permissive Hold together with Ignore Mod Tap Interrupt is exactly what ZMK
 // calls "balanced" - a key tapped inside the hold resolves it at once, while a
@@ -40,7 +49,7 @@
 //     which is why the lag came and went.
 &mt {
     flavor = "balanced";
-    tapping-term-ms = <200>;
+    tapping-term-ms = <300>;
 };
 
 / {
