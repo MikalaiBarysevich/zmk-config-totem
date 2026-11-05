@@ -1,0 +1,13 @@
+config TOTEM_REGOUT0_3V3
+	bool "Program UICR.REGOUT0 to 3.3 V on first boot"
+	depends on SOC_NRF52840
+	default n
+	help
+	  The Super52840 controller supplies the chip on VDDH while an
+	  external 3.3 V LDO also drives VDD. With REGOUT0 left at the
+	  factory 1.8 V (the XIAO bootloader never sets it) the right half
+	  drew 14-17 mA idle and 12.8 mA in System OFF; at 3.3 V, 5 mA and
+	  3.2 mA. UICR is persistent: it survives reflashing and can only be
+	  undone by a full erase over SWD. Written once, then a reset.
+	  On every boot the onboard LED shows the value for 0.5 s:
+	  green = 3.3 V, red = anything else.

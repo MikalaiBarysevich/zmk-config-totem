@@ -104,6 +104,13 @@
         // down, and the diodes block any path between them.
         wakeup-source;
 
+        // While a key is held the matrix is polled at this period (default
+        // 1 ms). On these Super52840 controllers every CPU wake-up is costly:
+        // measured on the right half with a key down, 50 mA at 1 ms and 15 mA
+        // at 5 ms, idle unchanged at 5 mA, typing fine (2026-11-05). Adds at
+        // most 5 ms of latency.
+        debounce-scan-period-ms = <5>;
+
         diode-direction = "col2row";
         row-gpios
             = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
