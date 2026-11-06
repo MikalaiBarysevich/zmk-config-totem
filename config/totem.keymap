@@ -40,16 +40,20 @@
 // term before the modifier landed. That is up to 175ms of delay per chord that
 // Vial never charged, and it is the "unpleasant lag" this config was accused of.
 //
-// Two properties are deliberately absent rather than set:
-//   - quick-tap-ms keeps its default of 0. Tapping Force Hold was on, and that
-//     is precisely the absence of tap-then-hold auto-repeat; the 100 here said
-//     the opposite.
+// quick-tap-ms: tap a home-row key, then press and hold it again within
+// 300 ms, and it auto-repeats the letter instead of becoming the modifier.
+// That is how the QH42 actually behaved (user-verified, 2026-11-06), even
+// though Vial showed Tapping Force Hold on - KMK's HoldTap repeats the tap
+// within tap_time, so 300 = the tapping term, as there.
+//
+// One property is deliberately absent rather than set:
 //   - require-prior-idle-ms has no counterpart in Vial. It was invented during
 //     the port, and all it did was paper over the delay above while typing fast,
 //     which is why the lag came and went.
 &mt {
     flavor = "balanced";
     tapping-term-ms = <300>;
+    quick-tap-ms = <300>;
 };
 
 / {
