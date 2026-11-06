@@ -2,6 +2,13 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
+// Mouse keys as fast as on the QH42 (Vial mousekey settings: delta 8 px per
+// 20 ms report, max speed x10, 30 reports to reach it -> about 4000 px/s after
+// 0.6 s; wheel 1 notch per 80 ms up to 8, reached after 3.2 s -> 100 notches/s).
+// ZMK's defaults are 600 px/s after 0.3 s and a flat 10 notches/s. These must
+// be defined before pointing.h, which only sets them #ifndef.
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 4000
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 #include <dt-bindings/zmk/pointing.h>
 
 #define BASE    0
@@ -50,6 +57,14 @@
 //   - require-prior-idle-ms has no counterpart in Vial. It was invented during
 //     the port, and all it did was paper over the delay above while typing fast,
 //     which is why the lag came and went.
+&mmv {
+    time-to-max-speed-ms = <600>;
+};
+
+&msc {
+    time-to-max-speed-ms = <3200>;
+};
+
 &mt {
     flavor = "balanced";
     tapping-term-ms = <300>;
@@ -92,7 +107,7 @@
                              &kp Q            &kp W            &kp E            &kp R            &kp T    &kp Y            &kp U            &kp I            &kp O            &kp P
                              &mt LGUI A       &mt LALT S       &mt LCTRL D      &mt LSHFT F      &kp G    &kp H            &mt RSHFT J      &mt RCTRL K      &mt RALT L       &mt LGUI SEMI
    &kp TAB          &kp Z            &kp X            &kp C            &kp V            &kp B    &kp N            &kp M            &kp COMMA        &kp DOT          &kp FSLH &kp SQT
-                                     &kp ESC          &mo 4            &kp SPACE    &kp RET          &mo 3            &kp BSPC
+                                     &gresc           &mo 4            &kp SPACE    &kp RET          &mo 3            &kp BSPC
             >;
         };
 
@@ -120,7 +135,7 @@
             display-name = "NUM";
             bindings = <
                              &kp N1           &kp N2           &kp N3           &kp N4           &kp N5    &kp N6           &kp N7           &kp N8           &kp N9           &kp N0
-                             &none            &none            &kp C_NEXT       &kp C_VOL_UP     &kp C_MUTE    &kp LEFT         &kp DOWN         &kp UP           &kp RIGHT        &kp PSCRN
+                             &kp LGUI         &kp LALT         &mt LCTRL C_NEXT &mt LSHFT C_VOL_UP &kp C_MUTE    &kp LEFT         &kp DOWN         &kp UP           &kp RIGHT        &kp PSCRN
    &kp LSHFT        &none            &none            &kp C_PREV       &kp C_VOL_DN     &kp C_PP    &kp HOME         &kp PG_DN        &kp PG_UP        &kp END          &kp INS &kp RSHFT
                                      &kp LGUI         &mo 5            &kp SPACE    &kp RET          &trans           &kp LALT
             >;
@@ -130,8 +145,8 @@
             display-name = "SYM";
             bindings = <
                              &kp EXCL         &kp AT           &kp HASH         &kp DLLR         &kp PRCNT    &kp CARET        &kp AMPS         &kp STAR         &kp LPAR         &kp RPAR
-                             &kp CAPS         &none            &none            &none            &none    &kp GRAVE        &kp MINUS        &kp EQUAL        &kp LBKT         &kp RBKT
-   &none            &none            &none            &none            &none            &none    &kp TILDE        &kp UNDER        &kp PLUS         &kp LBRC         &kp RBRC &kp PIPE
+                             &mt LGUI CAPS    &kp LALT         &kp LCTRL        &mt LSHFT SQT    &kp BSLH    &kp GRAVE        &kp MINUS        &kp EQUAL        &kp LBKT         &kp RBKT
+   &none            &none            &none            &none            &none            &kp PIPE &kp TILDE        &kp UNDER        &kp PLUS         &kp LBRC         &kp RBRC &kp PIPE
                                      &kp LGUI         &trans           &kp SPACE    &kp RET          &trans           &kp DEL
             >;
         };
