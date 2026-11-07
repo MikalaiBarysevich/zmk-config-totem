@@ -71,6 +71,15 @@
     quick-tap-ms = <300>;
 };
 
+// ZMK's stock &gresc is a mod-morph with no keep-mods, and a mod-morph strips
+// the modifier that triggered it. So Shift+Esc sent a bare GRAVE (`) instead of
+// TILDE (~). Keeping the shift mods restores the behaviour everyone expects.
+// GUI is deliberately left out: GUI+Esc keeps sending a plain `, and the host
+// never sees GUI+grave, which is a window-switching shortcut on some desktops.
+&gresc {
+    keep-mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+
 / {
     combos {
         compatible = "zmk,combos";
