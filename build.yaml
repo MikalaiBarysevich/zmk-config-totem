@@ -16,27 +16,6 @@ include:
     shield: totem_left
     snippet: studio-rpc-usb-uart
 
-  # TEST BUILD, not for daily use. The left half with ZMK Studio left out, so
-  # the USB device carries nothing but the HID interface.
-  #
-  # Measured 2026-11-08 on the normal build: the host enumerates
-  #
-  #   1d50:615e 'ZMK Project' 'TOTEM'  bDeviceClass=ef  bNumInterfaces=3
-  #     if0  Class=02 CDC            \ the studio-rpc-usb-uart serial port
-  #     if1  Class=0a CDC-data       /
-  #     if2  Class=03 SubClass=01 Protocol=01  HID boot keyboard
-  #
-  # The HID interface is correct - subclass 1 / protocol 1 is exactly what a
-  # BIOS looks for - and the keyboard types over USB under Linux with
-  # Bluetooth powered off, so the endpoint itself works. It is still dead in
-  # UEFI setup and GRUB. The open question is whether this firmware's
-  # composite shape is what the board firmware chokes on, hence this build.
-  # Delete it once the question is settled.
-  - board: seeeduino_xiao_ble
-    shield: totem_left
-    cmake-args: -DCONFIG_ZMK_STUDIO=n
-    artifact-name: totem_left-nostudio
-
   # No cmake-args needed here: Kconfig.defconfig already turns ZMK_SPLIT on for
   # this shield and only ever defaults ZMK_SPLIT_ROLE_CENTRAL to y for the left
   # half and the dongle.
