@@ -1,14 +1,16 @@
-#include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/outputs.h>
 // Mouse keys as fast as on the QH42 (Vial mousekey settings: delta 8 px per
 // 20 ms report, max speed x10, 30 reports to reach it -> about 4000 px/s after
 // 0.6 s; wheel 1 notch per 80 ms up to 8, reached after 3.2 s -> 100 notches/s).
 // ZMK's defaults are 600 px/s after 0.3 s and a flat 10 notches/s. These must
 // be defined before pointing.h, which only sets them #ifndef.
+
 #define ZMK_POINTING_DEFAULT_MOVE_VAL 4000
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 
 #define BASE    0
@@ -57,13 +59,10 @@
 //   - require-prior-idle-ms has no counterpart in Vial. It was invented during
 //     the port, and all it did was paper over the delay above while typing fast,
 //     which is why the lag came and went.
-&mmv {
-    time-to-max-speed-ms = <600>;
-};
 
-&msc {
-    time-to-max-speed-ms = <3200>;
-};
+&mmv { time-to-max-speed-ms = <600>; };
+
+&msc { time-to-max-speed-ms = <3200>; };
 
 &mt {
     flavor = "balanced";
@@ -76,15 +75,15 @@
 // TILDE (~). Keeping the shift mods restores the behaviour everyone expects.
 // GUI is deliberately left out: GUI+Esc keeps sending a plain `, and the host
 // never sees GUI+grave, which is a window-switching shortcut on some desktops.
-&gresc {
-    keep-mods = <(MOD_LSFT|MOD_RSFT)>;
-};
+
+&gresc { keep-mods = <(MOD_LSFT|MOD_RSFT)>; };
 
 / {
     combos {
         compatible = "zmk,combos";
 
         // D + F -> Tab, as on the QH42.
+
         combo_tab {
             timeout-ms = <50>;
             key-positions = <12 13>;
@@ -94,6 +93,7 @@
         // Unlocking ZMK Studio. On a combo rather than its own key: the FN
         // layer has no free slots left, and the two ends of the BT_SEL row
         // are never pressed together by accident.
+
         combo_studio_unlock {
             timeout-ms = <80>;
             layers = <FN>;
@@ -107,66 +107,68 @@
 
         base_layer {
             display-name = "BASE";
+
             // The right pinky home-row mod sends LEFT GUI, not right: Windows
             // treats the two as separate keys and a good deal of software only
             // listens for the left one, so shortcuts fired from the right hand
             // silently did nothing there. Every other home-row mod keeps its
             // own side.
+
             bindings = <
-                             &kp Q            &kp W            &kp E            &kp R            &kp T    &kp Y            &kp U            &kp I            &kp O            &kp P
-                             &mt LGUI A       &mt LALT S       &mt LCTRL D      &mt LSHFT F      &kp G    &kp H            &mt RSHFT J      &mt RCTRL K      &mt RALT L       &mt LGUI SEMI
-   &kp TAB          &kp Z            &kp X            &kp C            &kp V            &kp B    &kp N            &kp M            &kp COMMA        &kp DOT          &kp FSLH &kp SQT
-                                     &gresc           &mo 4            &kp SPACE    &kp RET          &mo 3            &kp BSPC
+           &kp Q       &kp W       &kp E        &kp R        &kp T        &kp Y    &kp U        &kp I        &kp O       &kp P
+           &mt LGUI A  &mt LALT S  &mt LCTRL D  &mt LSHFT F  &kp G        &kp H    &mt RSHFT J  &mt RCTRL K  &mt RALT L  &mt LGUI SEMI
+&kp GRAVE  &kp Z       &kp X       &kp C        &kp V        &kp B        &kp N    &kp M        &kp COMMA    &kp DOT     &kp FSLH       &kp SQT
+                                   &kp ESC      &mo 4        &kp SPACE    &kp RET  &mo 3        &kp BSPC
             >;
         };
 
         colemak_layer {
             display-name = "COLEMAK";
             bindings = <
-                             &kp Q            &kp W            &kp F            &kp P            &kp G    &kp J            &kp L            &kp U            &kp Y            &kp SEMI
-                             &kp A            &kp R            &kp S            &kp T            &kp D    &kp H            &kp N            &kp E            &kp I            &kp O
-   &kp LSHFT        &kp Z            &kp X            &kp C            &kp V            &kp B    &kp K            &kp M            &kp COMMA        &kp DOT          &kp FSLH &kp RSHFT
-                                     &kp LGUI         &mo 4            &kp SPACE    &kp RET          &mo 3            &kp RALT
+           &kp Q  &kp W  &kp F     &kp P  &kp G        &kp J    &kp L  &kp U      &kp Y    &kp SEMI
+           &kp A  &kp R  &kp S     &kp T  &kp D        &kp H    &kp N  &kp E      &kp I    &kp O
+&kp LSHFT  &kp Z  &kp X  &kp C     &kp V  &kp B        &kp K    &kp M  &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+                         &kp LGUI  &mo 4  &kp SPACE    &kp RET  &mo 3  &kp RALT
             >;
         };
 
         game_layer {
             display-name = "GAME";
             bindings = <
-                             &kp Q            &kp W            &kp E            &kp R            &kp T    &kp Y            &kp U            &kp I            &kp O            &kp P
-                             &kp A            &kp S            &kp D            &kp F            &kp G    &kp H            &kp J            &kp K            &kp L            &kp SEMI
-   &kp LCTRL        &kp Z            &kp X            &kp C            &kp V            &kp B    &kp N            &kp M            &kp COMMA        &kp DOT          &kp FSLH &kp RSHFT
-                                     &kp LGUI         &mo 4            &kp SPACE    &kp RET          &mo 3            &kp RALT
+           &kp Q  &kp W  &kp E     &kp R  &kp T        &kp Y    &kp U  &kp I      &kp O    &kp P
+           &kp A  &kp S  &kp D     &kp F  &kp G        &kp H    &kp J  &kp K      &kp L    &kp SEMI
+&kp LCTRL  &kp Z  &kp X  &kp C     &kp V  &kp B        &kp N    &kp M  &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+                         &kp LGUI  &mo 4  &kp SPACE    &kp RET  &mo 3  &kp RALT
             >;
         };
 
         num_layer {
             display-name = "NUM";
             bindings = <
-                             &kp N1           &kp N2           &kp N3           &kp N4           &kp N5    &kp N6           &kp N7           &kp N8           &kp N9           &kp N0
-                             &kp LGUI         &kp LALT         &mt LCTRL C_NEXT &mt LSHFT C_VOL_UP &kp C_MUTE    &kp LEFT         &kp DOWN         &kp UP           &kp RIGHT        &kp PSCRN
-   &kp LSHFT        &none            &none            &kp C_PREV       &kp C_VOL_DN     &kp C_PP    &kp HOME         &kp PG_DN        &kp PG_UP        &kp END          &kp INS &kp RSHFT
-                                     &kp LGUI         &mo 5            &kp SPACE    &kp RET          &trans           &kp LALT
+           &kp N1    &kp N2    &kp N3            &kp N4              &kp N5        &kp N6    &kp N7     &kp N8         &kp N9     &kp N0
+           &kp LGUI  &kp LALT  &mt LCTRL C_NEXT  &mt LSHFT C_VOL_UP  &kp C_MUTE    &kp LEFT  &kp DOWN   &kp UP         &kp RIGHT  &kp PSCRN
+&kp LSHFT  &none     &none     &kp C_PREV        &kp C_VOL_DN        &kp C_PP      &kp HOME  &kp PG_DN  &kp PG_UP      &kp END    &kp INS    &kp RSHFT
+                               &kp LGUI          &mo 5               &kp SPACE     &kp RET   &trans     &kp BACKSPACE
             >;
         };
 
         sym_layer {
             display-name = "SYM";
             bindings = <
-                             &kp EXCL         &kp AT           &kp HASH         &kp DLLR         &kp PRCNT    &kp CARET        &kp AMPS         &kp STAR         &kp LPAR         &kp RPAR
-                             &mt LGUI CAPS    &kp LALT         &kp LCTRL        &mt LSHFT SQT    &kp BSLH    &kp GRAVE        &kp MINUS        &kp EQUAL        &kp LBKT         &kp RBKT
-   &none            &none            &none            &none            &none            &kp PIPE &kp TILDE        &kp UNDER        &kp PLUS         &kp LBRC         &kp RBRC &kp PIPE
-                                     &kp LGUI         &trans           &kp SPACE    &kp RET          &trans           &kp DEL
+       &kp EXCL       &kp AT    &kp HASH   &kp DLLR       &kp PRCNT    &kp CARET  &kp AMPS   &kp STAR   &kp LPAR  &kp RPAR
+       &mt LGUI CAPS  &kp LALT  &kp LCTRL  &mt LSHFT SQT  &kp BSLH     &kp GRAVE  &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT
+&none  &none          &none     &none      &none          &kp PIPE     &kp TILDE  &kp UNDER  &kp PLUS   &kp LBRC  &kp RBRC  &kp PIPE
+                                &none      &trans         &none        &none      &trans     &none
             >;
         };
 
         fn_layer {
             display-name = "FN";
             bindings = <
-                             &kp F1           &kp F2           &kp F3           &kp F4           &kp F5    &kp F6           &kp F7           &kp F8           &kp F9           &kp F10
-                             &out OUT_TOG     &kp F11          &kp F12          &to 2            &to 0    &mmv MOVE_LEFT   &mmv MOVE_DOWN   &mmv MOVE_UP     &mmv MOVE_RIGHT  &mkp MB1
-   &bt BT_CLR       &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4    &msc SCRL_LEFT   &msc SCRL_DOWN   &msc SCRL_UP     &msc SCRL_RIGHT  &mkp MB2 &mkp MB3
-                                     &kp LGUI         &trans           &kp SPACE    &kp RET          &trans           &kp RCTRL
+            &kp F1        &kp F2        &kp F3        &kp F4        &kp F5          &kp F6          &kp F7          &kp F8        &kp F9           &kp F10
+            &out OUT_TOG  &kp F11       &kp F12       &to 2         &to 0           &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT  &mkp MB1
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_UP  &msc SCRL_RIGHT  &mkp MB2  &mkp MB3
+                                        &none         &trans        &none           &none           &trans          &none
             >;
         };
     };
