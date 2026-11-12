@@ -158,7 +158,7 @@
        &kp EXCL       &kp AT    &kp HASH   &kp DLLR       &kp PRCNT    &kp CARET  &kp AMPS   &kp STAR   &kp LPAR  &kp RPAR
        &mt LGUI CAPS  &kp LALT  &kp LCTRL  &mt LSHFT SQT  &kp BSLH     &kp GRAVE  &kp MINUS  &kp EQUAL  &kp LBKT  &kp RBKT
 &none  &none          &none     &none      &none          &kp PIPE     &kp TILDE  &kp UNDER  &kp PLUS   &kp LBRC  &kp RBRC  &kp PIPE
-                                &none      &trans         &none        &none      &trans     &none
+                                &none      &trans         &none        &kp ENTER  &trans     &kp DEL
             >;
         };
 
@@ -170,6 +170,15 @@
 &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_UP  &msc SCRL_RIGHT  &mkp MB2  &mkp MB3
                                         &none         &trans        &none           &none           &trans          &none
             >;
+        };
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+
+        Function {
+            if-layers = <3 4>;
+            then-layer = <5>;
         };
     };
 };
